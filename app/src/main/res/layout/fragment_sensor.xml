@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="sensor"
+            type="a248.kotlinoid.model.SensorEntity"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#e2e2e2">
+
+        <TextView
+            android:id="@+id/fragment_sensor_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:background="#fff"
+            android:text="@{sensor.title}"
+            tools:text="@string/app_name"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <!--TextView
+            android:id="@+id/fragment_sensor_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="#fff"
+            android:text="@{sensor.desc}"
+            tools:text="@string/hello_kotlin"
+            android:textColor="@color/colorPrimaryDark"/-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/values_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+</layout>

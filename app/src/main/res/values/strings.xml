@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Мухрино</string>
+    <string name="hello_kotlin">Hello from Kotlin! Hello from Kotlin! Hello from Kotlin! Hello from Kotlin! Hello from Kotlin! Hello from Kotlin! Hello from Kotlin! Hello from Kotlin! Hello from Kotlin!</string>
+    <string name="hint_title">Название датчика</string>
+    <string name="hint_desc">Единицы измерения</string>
+    <string name="new_sensor">Новый датчик</string>
+    <string name="hint_value">Значение</string>
+    <string name="hint_datetime">Дата и время</string>
+    <string name="time_button_name">Выбрать время</string>
+    <string name="date_button_name">Выбрать дату</string>
+    <string name="delete_question">Удалить?</string>
+    <string name="insert_value">Введите данные</string>
+</resources>
