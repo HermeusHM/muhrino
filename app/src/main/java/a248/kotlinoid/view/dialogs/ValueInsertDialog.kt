@@ -13,7 +13,7 @@ import android.view.View
 import java.util.*
 
 
-fun FragmentActivity.buildValueInsertDialog(ctx: Context, onCreated: (ValuesEntity) -> Unit, sensorId: Int) {
+fun FragmentActivity.buildValueInsertDialog(ctx: Context, onCreated: (ValuesEntity) -> Unit, sensorId: Int, servId: Int) {
     val builder = AlertDialog.Builder(this)
     val inflater = this.layoutInflater
     val dialogView = inflater.inflate(R.layout.dialog_value_insert, null)
@@ -54,8 +54,9 @@ fun FragmentActivity.buildValueInsertDialog(ctx: Context, onCreated: (ValuesEnti
     builder.setTitle(ctx.getString(R.string.insert_value))
     builder.setPositiveButton("Ок") {dialog, which ->
         run {
-            val obj = ValuesEntity()      //сменить название сущности
+            val obj = ValuesEntity()
             obj.sensorId = sensorId
+            obj.serverSensorId = servId
             if (etValue?.text?.toString()?.isEmpty() ?: true) {
                 etValue?.setError("Поле не должно быть пустым")
             } else {

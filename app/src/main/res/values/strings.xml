@@ -10,4 +10,6 @@
     <string name="date_button_name">Выбрать дату</string>
     <string name="delete_question">Удалить?</string>
     <string name="insert_value">Введите данные</string>
+    <string name="set_domain">Введите домен</string>
+    <string name="domain">example.ru</string>
 </resources>

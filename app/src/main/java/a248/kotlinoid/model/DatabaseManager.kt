@@ -9,7 +9,7 @@ import java.util.*
 
 
 
-const val SENSOR_TABLE_NAME = "sensors"             // название таблицы БД (изменить позже) так же изменить поля таблицы ниже
+const val SENSOR_TABLE_NAME = "sensors"
 const val VALUES_TABLE_NAME = "values_table"
 
 @Entity(tableName = SENSOR_TABLE_NAME)
@@ -18,7 +18,7 @@ class SensorEntity {
     var uuid: Int = 0
     @ColumnInfo(name = "title") var title: String = ""
     @ColumnInfo(name = "desc") var desc: String = ""
-    @ColumnInfo(name = "server_id") var serverId: String = ""
+    @ColumnInfo(name = "server_id") var serverId: Int = 0
 }
 
 @Entity(tableName = VALUES_TABLE_NAME, foreignKeys = arrayOf(ForeignKey(entity = SensorEntity::class,
@@ -31,6 +31,7 @@ class ValuesEntity {
     @ColumnInfo(name = "value") var value: Float = 0.0f
     @ColumnInfo(name = "date") var date: Date = Date()
     @ColumnInfo(name = "sensorId") var sensorId : Int = 0
+    @ColumnInfo(name = "server_sensor_id") var serverSensorId: Int = 0
 }
 
 
@@ -55,6 +56,9 @@ interface SensorDao {
 @Dao
 interface ValuesDao {
 
+    @Query("SELECT * FROM $VALUES_TABLE_NAME")
+    fun getAllValues(): Flowable<List<ValuesEntity>>
+
     @Query("SELECT * FROM $VALUES_TABLE_NAME WHERE sensorId = :sensorId")
     fun getValuesBySensorId(sensorId: Int): LiveData<List<ValuesEntity>>
 
@@ -69,7 +73,7 @@ interface ValuesDao {
 @Database(entities = arrayOf(SensorEntity::class, ValuesEntity::class), version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase: RoomDatabase() {
-    abstract fun sensorDao(): SensorDao             // изменить название на неоюходимое дао
+    abstract fun sensorDao(): SensorDao
     abstract fun valuesDao(): ValuesDao
     companion object {
         private var instance: AppDatabase? = null

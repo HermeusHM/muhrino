@@ -5,6 +5,7 @@ import a248.kotlinoid.R
 import a248.kotlinoid.view.adapters.VerticalSpaceSensorDecorator
 import a248.kotlinoid.model.SensorEntity
 import a248.kotlinoid.view.SupportLifecycleFragment
+import a248.kotlinoid.view.activities.MainActivity
 import a248.kotlinoid.view.activities.SensorActivity
 import a248.kotlinoid.viewmodel.SensorViewModel
 import android.arch.lifecycle.Observer
@@ -29,6 +30,7 @@ class MainFragment: SupportLifecycleFragment(){
 
     companion object Factory {
         const val EXTRA_SENSOR_UUID = "extra_uuid"
+        const val EXTRA_SENSOR_SID = "extra_sid"
         fun newInstance(): MainFragment {
             val fragment = MainFragment()
             val args = Bundle()
@@ -73,7 +75,8 @@ class MainFragment: SupportLifecycleFragment(){
     fun loadSensors() {
         rv.visibility = View.GONE
         progress.visibility  = View.VISIBLE
-        viewModel.getSensorsFromServer()
+        val activity = activity as MainActivity
+        viewModel.syncWithServer(activity.getDomain())
     }
 
     fun deleteSensor(sensor: SensorEntity) {
@@ -83,6 +86,7 @@ class MainFragment: SupportLifecycleFragment(){
     fun startSensorActivity(sensor: SensorEntity) {
         val intent = Intent(activity, SensorActivity::class.java)
         intent.putExtra(EXTRA_SENSOR_UUID, sensor.uuid)
+        intent.putExtra(EXTRA_SENSOR_SID, sensor.serverId)
         activity.startActivity(intent)
     }
 

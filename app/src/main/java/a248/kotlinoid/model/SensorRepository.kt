@@ -15,7 +15,7 @@ import retrofit2.Response
 
 object SensorRepository {
 
-    var sensorDao: SensorDao? = null            // изменить название на подходящее дао, сменить аналогично методы ниже
+    var sensorDao: SensorDao? = null
 
     fun checkDao(): SensorDao {
         return sensorDao ?: throw NullPointerException("==Set Dao to SensorRepository")
@@ -23,9 +23,9 @@ object SensorRepository {
 
     fun getSensors(): LiveData<List<SensorEntity>>? = checkDao().getAllAsLiveData()
 
-    fun getSensorsFromServer(){
+    fun syncWithServer(baseUrl: String){
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.43.51:80/")
+                .baseUrl("http://" + baseUrl + "/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         val messagesApi = retrofit.create(APIInterface::class.java)
@@ -43,7 +43,7 @@ object SensorRepository {
                         val sensor = SensorEntity()
                         sensor.title = it.name
                         sensor.desc = it.measurements
-                        sensor.serverId = it.pid
+                        sensor.serverId = it.pid.toInt()
                         responseSensors.add(sensor)
                     }
                     addSensor(*responseSensors.toTypedArray())

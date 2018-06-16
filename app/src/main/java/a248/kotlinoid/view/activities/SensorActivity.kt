@@ -18,7 +18,8 @@ class SensorActivity : SupportLifecycleActivity() {         //сменить и�
         setSupportActionBar(this.toolbar)
 
         val fragmentInstance = SensorFragment.newInstance(
-                intent.getIntExtra(MainFragment.EXTRA_SENSOR_UUID, 0)
+                intent.getIntExtra(MainFragment.EXTRA_SENSOR_UUID, 0),
+                intent.getIntExtra(MainFragment.EXTRA_SENSOR_SID, 0)
         )
 
 
@@ -26,7 +27,9 @@ class SensorActivity : SupportLifecycleActivity() {         //сменить и�
         fab.setOnClickListener {
             buildValueInsertDialog(this, {
                 fragmentInstance.insertValue(it)
-            }, intent.getIntExtra(MainFragment.EXTRA_SENSOR_UUID, 0))
+            },
+                    intent.getIntExtra(MainFragment.EXTRA_SENSOR_UUID, 0),
+                    intent.getIntExtra(MainFragment.EXTRA_SENSOR_SID, 0))
         }
 
         supportFragmentManager.beginTransaction()

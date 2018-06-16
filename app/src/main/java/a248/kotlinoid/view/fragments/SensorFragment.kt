@@ -30,7 +30,7 @@ class SensorFragment : SupportLifecycleFragment() {
 
     companion object {
         private const val ARG_SENSOR_UUID = "arg_sensor_uuid"
-        fun newInstance(uuid: Int): SensorFragment {
+        fun newInstance(uuid: Int, servId: Int): SensorFragment {
             val instance = SensorFragment()
             val args = Bundle()
             args.putInt(ARG_SENSOR_UUID, uuid)
