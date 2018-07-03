@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_gravity="bottom|end"
-            android:src="@mipmap/add_item"/>
+            android:src="@drawable/baseline_autorenew_24"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

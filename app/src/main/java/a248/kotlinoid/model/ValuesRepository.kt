@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object ValuesRepository {
 
-    var valuesDao: ValuesDao? = null            // изменить название на подходящее дао, сменить аналогично методы ниже
+    var valuesDao: ValuesDao? = null
     var getAllValuesSubscription: Disposable? = null
 
     fun checkDao(): ValuesDao {
@@ -39,14 +39,14 @@ object ValuesRepository {
                     if (getAllValuesSubscription != null) {
                         getAllValuesSubscription!!.dispose()
                     }
-                    Log.d("abrakadra vlz", "VALUES LIST SIZE = ${valuesList.size}")
+               //     Log.d("abrakadra vlz", "VALUES LIST SIZE = ${valuesList.size}")
                     valuesList.forEach {
                         val retrofit = Retrofit.Builder()
                                 .baseUrl("http://" + baseUrl + "/")
                                 .addConverterFactory(GsonConverterFactory.create())
                                 .build()
                         val messagesApi = retrofit.create(APIInterface::class.java)
-                        Log.d("abrakadabra", it.serverSensorId.toString())
+                 //       Log.d("abrakadabra", it.serverSensorId.toString())
                         val valuePOJO = ValuePOJO(
                                 it.value,
                                 //it.date.toString(),
@@ -56,12 +56,12 @@ object ValuesRepository {
                         val request = messagesApi.createValue(valuePOJO)
                         request.enqueue(object: Callback<ValueResponse> {
                             override fun onFailure(call: Call<ValueResponse>?, t: Throwable?) {
-                                Log.d("abrakadabra", "fail ${t.toString()}")
+                       //         Log.d("abrakadabra", "fail ${t.toString()}")
                             }
 
                             override fun onResponse(call: Call<ValueResponse>?, response: Response<ValueResponse>) {
-                                Log.d("abrakadabra", "code ${response.code().toString()}")
-                                Log.d("abrakadabra", response.body()?.message ?: "No message")
+                       //         Log.d("abrakadabra", "code ${response.code().toString()}")
+                       //         Log.d("abrakadabra", response.body()?.message ?: "No message")
                             }
                         })
                     }

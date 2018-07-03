@@ -31,12 +31,13 @@ object SensorRepository {
         val messagesApi = retrofit.create(APIInterface::class.java)
 
         val sensors = messagesApi.getSensors()
-        Log.d("абракадабра","йцуйцуйцу ${sensors.request().url().toString()}");
+   //     Log.d("абракадабра","йцуйцуйцу ${sensors.request().url().toString()}");
 
         sensors.enqueue(object : Callback<List<SensorPOJO>> {
             override fun onResponse(call: Call<List<SensorPOJO>>, response: Response<List<SensorPOJO>>) {
-                Log.d("абракадабра","response " + response.body()!!.size)
+
                 if ((response.isSuccessful) && (response.code() == 200)) {
+                    Log.d("абракадабра","response " + response.body()!!.size)
                     deleteAllSensors()
                     val responseSensors = mutableListOf<SensorEntity>()
                     response.body()!!.forEach {
@@ -48,16 +49,16 @@ object SensorRepository {
                     }
                     addSensor(*responseSensors.toTypedArray())
                 } else {
-                    Log.d("абракадабра", response.code().toString())
+       //             Log.d("абракадабра", response.code().toString())
                 }
             }
             override fun onFailure(call: Call<List<SensorPOJO>>, t: Throwable) {
-                Log.d("абракадабра","FAILURE ${t.message}")
+     //           Log.d("абракадабра","FAILURE ${t.message}")
                 t.printStackTrace()
             }
         })
     }
-// сделать гетsensorbyсерверид
+
     fun getSensorById(uuid: Int): Flowable<SensorEntity> = checkDao().getSensorById(uuid)
             .observeOn(Schedulers.io())
             .subscribeOn(AndroidSchedulers.mainThread())
